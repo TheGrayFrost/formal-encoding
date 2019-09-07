@@ -1,6 +1,6 @@
 # Formal encoding of IMO problems
 
-To eliminate the need for human judges in the [IMO Grand Challenge](https://IMO-grand-challenge.github.io/), we propose the formal-to-formal (F2F) variant of the IMO.
+To remove ambiguity about the scoring rules for the [IMO Grand Challenge](https://IMO-grand-challenge.github.io/), we propose the formal-to-formal (F2F) variant of the IMO.
 The AI receives a *formal* representation of the problem (in the [Lean Theorem Prover](https://leanprover.github.io/)), and is required to emit a *formal* (i.e. machine-checkable) proof.
 
 In this repository, we are working on a proposal for encoding IMO problems in Lean that we hope will acheive broad consensus.
