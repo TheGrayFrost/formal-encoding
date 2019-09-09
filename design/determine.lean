@@ -62,6 +62,10 @@ def determineSolutionSet (X : Type) (s₀ : Set X) : Type :=
 -- Unfortunately, it is not obvious how to make this approach workable for uncountable sets.
 -- (It seems reasonable for a solution to be e.g. { x : ℝ // x > 0 ∧ x < 1 })
 
+-- Even worse, @fpvandoorn points out that choice could produce a SolutionSet that could
+-- be proved correct from only a proof that the desired set is countable.
+-- Similar issues could plague the other approaches as well.
+
 /-
 Tentative proposal:
 
@@ -72,9 +76,7 @@ expect that for a given witness, there will be broad consensus on
 whether or not it constitutes an acceptable solution.
 
 Thus, in the absense of a solution to this design challenge, we
-propose that any of the agreed-upon sound (but incomplete)
-representations (e.g. finite/countable/decidable) will get full score
-without inspection, while witnesses outside this set will be inspected
-by humans and are required to be deemed 'reasonable'. Note that proofs
-will not be inspected by humans.
+propose that witnesses will be inspected by humans and are required to
+be deemed 'reasonable'. Note that proofs will not be inspected by
+humans.
 -/
