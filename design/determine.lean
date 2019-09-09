@@ -53,8 +53,8 @@ inductive SolutionSet (X : Type)
 | countablyInfinite : (Nat → X) → SolutionSet
 
 def SolutionSet.mem {X : Type} (x : X) : SolutionSet X → Prop
-| finite xs            => List.mem x xs
-| countablyInfinite φ  => Exists $ λ (n : Nat) => x = φ n
+| SolutionSet.finite xs            => List.mem x xs
+| SolutionSet.countablyInfinite φ  => Exists $ λ (n : Nat) => x = φ n
 
 def determineSolutionSet (X : Type) (s₀ : Set X) : Type :=
 { s : SolutionSet X // ∀ (x : X), s.mem x ↔ s₀.mem x }
