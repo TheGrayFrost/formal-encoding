@@ -1,0 +1,43 @@
+/-
+Design challenge: how to represent problems that require "determining" a set.
+------------------------------------------------------------------------------
+
+Consider the following problem:
+
+"""
+[IMO 2019, Problem 1]
+Let ℤ be the set of integers. Determine all functions f : ℤ → ℤ such that, for all integers a and b,
+f(2a) + 2f(b) = f(f(a+b))
+"""
+-/
+
+-- Consider the following naive formulation:
+
+notation `ℤ` := Int
+def Set (X : Type) : Type := X → Prop
+def Set.mem {X : Type} (x : X) (s : Set X) : Prop := s x
+
+def determineNaive {X : Type} (s₀ : Set X) : Type :=
+{ s : Set X // ∀ x, s.mem x ↔ s₀.mem x }
+
+def IMO_2019_Problem_1_naive : Type :=
+determineNaive $ λ (f : ℤ → ℤ) => ∀ (a b : ℤ), f (2 * a) + 2 * f b = f (f (a + b))
+
+-- However, this formulation admits the following degenerate solution:
+
+example : IMO_2019_Problem_1_naive :=
+⟨ λ (f : ℤ → ℤ) => ∀ (a b : ℤ), f (2 * a) + 2 * f b = f (f (a + b)), λ _ => Iff.refl _ ⟩
+
+-- Clearly this answer should not be accepted!
+-- One way to address the issue may be to require the witness to be a decidable set.
+
+def DecidableSet (X : Type) : Type := X → Bool
+def DecidableSet.mem {X : Type} (x : X) (s : DecidableSet X) : Bool := s x
+
+def determineDecidable {X : Type} (s₀ : Set X) : Type :=
+{ s : DecidableSet X // ∀ (x : X), s.mem x ↔ s₀.mem x }
+
+def IMO_2019_Problem_1_decidable_set : Type :=
+determineDecidable $ λ (f : ℤ → ℤ) => ∀ (a b : ℤ), f (2 * a) + 2 * f b = f (f (a + b))
+
+-- Unfortunately, this formulation does not work either, since equality of functions is not decidable.
