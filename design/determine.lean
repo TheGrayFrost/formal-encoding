@@ -29,7 +29,7 @@ example : IMO_2019_Problem_1_naive :=
 ⟨ λ (f : ℤ → ℤ) => ∀ (a b : ℤ), f (2 * a) + 2 * f b = f (f (a + b)), λ _ => Iff.refl _ ⟩
 
 -- Clearly this answer should not be accepted!
--- One way to address the issue may be to require the witness to be a decidable set.
+-- We could in principle require the witness to be a decidable set:
 
 def DecidableSet (X : Type) : Type := X → Bool
 def DecidableSet.mem {X : Type} (x : X) (s : DecidableSet X) : Bool := s x
@@ -41,3 +41,22 @@ def IMO_2019_Problem_1_decidable_set : Type :=
 determineDecidable $ λ (f : ℤ → ℤ) => ∀ (a b : ℤ), f (2 * a) + 2 * f b = f (f (a + b))
 
 -- Unfortunately, this formulation does not work either, since equality of functions is not decidable.
+
+-- A third attempt is to wrap different types of acceptable solutions into an inductive type:
+
+def List.mem {X : Type} (x₀ : X) : List X → Prop
+| []    => false
+| x::xs => x = x₀ ∨ List.mem xs
+
+inductive SolutionSet (X : Type)
+| finite            : List X → SolutionSet
+| countablyInfinite : (Nat → X) → SolutionSet
+
+def SolutionSet.mem {X : Type} (x : X) : SolutionSet X → Prop
+| finite xs            => List.mem x xs
+| countablyInfinite φ  => Exists $ λ (n : Nat) => x = φ n
+
+def determineSolutionSet (X : Type) (s₀ : Set X) : Type :=
+{ s : SolutionSet X // ∀ (x : X), s.mem x ↔ s₀.mem x }
+
+-- Unfortunately, it is not obvious how to make this approach workable for uncountable sets.
