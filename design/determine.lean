@@ -66,6 +66,13 @@ def determineSolutionSet (X : Type) (s₀ : Set X) : Type :=
 -- be proved correct from only a proof that the desired set is countable.
 -- Similar issues could plague the other approaches as well.
 
+-- From @fpvandoorn: "Even finiteness is too weak. Suppose a program
+-- proves that if (n,k) is a solution to IMO 2019-4, then the
+-- inequality n, k < 10^(10^100) holds. We can then apply the
+-- degenerate solution. A human solution like that will be rejected
+-- (you are not allowed to omit a finite but infeasible amount of
+-- work)."
+
 /-
 Tentative proposal:
 
