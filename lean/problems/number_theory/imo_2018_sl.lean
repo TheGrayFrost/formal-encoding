@@ -17,7 +17,7 @@ def IMO_2018_SL_N2 : Prop :=
 ∀ (table : Fin n → Fin n → ℤ),
 ∀ i j, table i j % n = 1 →
 ∀ i, sum (λ j => table i j) % n^2 = n →
-∀ i, sum (λ i => table i j) % n^2 = n →
+∀ j, sum (λ i => table i j) % n^2 = n →
 let R := λ i => prod (λ j => table i j);
 let C := λ j => prod (λ i => table i j);
 sum R % n^4 = sum C % n^4
