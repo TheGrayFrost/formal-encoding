@@ -39,7 +39,7 @@ def IMO_2018_SL_N5 : Prop :=
 -- note: design freedom on this one
 --       (was phrased as "suppose ... is it possible that ...")
 -- note: the set of 4-tuples is hideous, as is the match
-decide (empty $ λ (xyzt : ℕ × ℕ × ℕ × ℕ) =>
+decide (empty $ λ (xyzt : ℕgt0 × ℕgt0 × ℕgt0 × ℕgt0) =>
   match xyzt with
   | (x, y, z, t) => x * y - z * t = x + y ∧ x + y = z + t
                     ∧ perfectSquare (x * y) ∧ perfectSquare (z * t))
