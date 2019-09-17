@@ -28,7 +28,11 @@ noncomputable instance : HasLess ℚ := ⟨SKIP⟩
 notation `ℚgt0` := { r : ℚ // r > 0 }
 notation `ℚge0` := { r : ℚ // r ≥ 0 }
 
+axiom isInt : ℚ → Prop
+
 end Rat
+
+axiom Nat.toRat : ℕ → ℚ
 
 axiom Real : Type
 notation `ℝ` := Real
