@@ -56,7 +56,6 @@ def IMO_2018_SL_N7 : Prop :=
 let seq := (mkVec $ λ i => (b i).toRat / a i);
 arithmeticProgress seq → allSame seq
 
-
 end NumberTheory
 end Problems
 end IMOGrandChallenge

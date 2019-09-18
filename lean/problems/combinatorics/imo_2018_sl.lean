@@ -18,6 +18,25 @@ def IMO_2018_SL_C2 : Type :=
 --                   goal is to find maximal `K` s.t. `P(K)` no matter how P2 plays
 -- design: this is a new kind of discrete transition system, that is now multi-agent
 -- will reassess design after seeing a few more combinatorics problems
+-- note: problem presupposes knowledge of chess!
+let Square : Type := Option Bool;
+let horst := 0;
+let queenie := 1;
+let empty := none;
+let blackKnight := some false;
+let whiteQueen := some true;
+
+-- TODO(dselsam): this abstraction does not exist yet and may never exist
+let game : TurnBasedGame := {
+  State       := Grid Square 20 20,
+  Action      := Fin 20 × Fin 20,
+  nPlayers    := 2,
+  legalAction := λ s₁ player a₁ =>
+    s₁[a₁] == empty ∧
+    (player == queenie ∨ ¬ ∃ a₂, s₁[a₂] == blackKnight ∧ multisetEq [abs (a₁.1 - a₂.1), abs (a₁.2 - a₂.2)] [1, 2]);
+  takeAction  := λ s₁ player a₁ =>
+    s₁[a₁] = if player == horst then blackKnight else whiteQueen;
+};
 SKIP
 
 def IMO_2018_SL_C3 : Prop :=
@@ -36,8 +55,7 @@ let antiPascal : ∀ (n : ℕ), Set (Triangle n) :=
   λ (n : ℕ) (tri : Triangle) => ∀ (k : Fin n), k < n-1 → ∀ (i : Fin k), tri k i = abs (tri (k+1) i - tri (k+1) (i+1)),
 let distinctEntries : ∀ (n : ℕ), Set (Triangle n) :=
   λ (tri : Triangle) => distinct (λ (z : ℤ) => ∃ (k : Fin n) (i : Fin k), z = tri k i);
-∀ (n : ℕgt0),
-  decide (empty (antiPascal n ∩ distinctEntries n))
+decide (empty (antiPascal 2018 ∩ distinctEntries 2018))
 
 def IMO_2018_SL_C5 :
 -- note: the `(k choose 2)` is not stated in the original problem
